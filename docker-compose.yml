@@ -1,0 +1,11 @@
+version: "3.3"
+
+services:
+  wiremock:
+    image: holomekc/wiremock-gui:latest
+    ports:
+      - "9001:8080"
+    volumes:
+      - ./local/stubs:/home/wiremock/storage
+    environment:
+      WIREMOCK_OPTIONS: "--local-response-templating,--root-dir=/home/wiremock/storage"

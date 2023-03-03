@@ -1,0 +1,20 @@
+{
+  "request": {
+    "url": "/v1/mock/messages",
+    "method": "GET",
+    "headers": {
+      "authorization": {
+        "matches": ".*"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "message": "Hello, Wiremock!"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
