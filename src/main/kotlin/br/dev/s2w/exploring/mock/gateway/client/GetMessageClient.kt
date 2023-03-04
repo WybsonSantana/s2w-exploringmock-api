@@ -1,7 +1,7 @@
 package br.dev.s2w.exploring.mock.gateway.client
 
 import br.dev.s2w.exploring.mock.domain.Message
-import br.dev.s2w.exploring.mock.util.Constants.GET_MESSAGE_CLIENT_NAME
+import br.dev.s2w.exploring.mock.util.constants.Constants.GET_MESSAGE_CLIENT_NAME
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
