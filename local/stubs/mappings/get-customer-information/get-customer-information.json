@@ -1,0 +1,42 @@
+{
+  "request": {
+    "url": "/v1/customer/consult/02302176308/id/83014969-4800-4cc8-95eb-a2f8cd8851df",
+    "method": "GET",
+    "headers": {
+      "authorization": {
+        "matches": ".*"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "customer_id": "83014969-4800-4cc8-95eb-a2f8cd8851df",
+      "has_premium_isiflix_account": true,
+      "personal_information": {
+        "full_name": "Talita Lopes Lima",
+        "gender": "Feminino",
+        "birthday": "23/05/1995",
+        "document_number": "023.021.763-08"
+      },
+      "contact_information": {
+        "cell_phone_number": "+55 11 92618-6044",
+        "phone_number": "+55 11 4988-0419",
+        "email_address": "talita.lopes@customer.isiflix.com.br"
+      },
+      "address_information": {
+        "street": "Avenida N. Sra. da Compilação",
+        "number": "1621",
+        "complement": "Esq. com o Spring Park",
+        "neighborhood": "Morada do Bean",
+        "city": "São José do Byte Code",
+        "state": "SP",
+        "country": "Brasil",
+        "zip_code": "11017-019"
+      }
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
