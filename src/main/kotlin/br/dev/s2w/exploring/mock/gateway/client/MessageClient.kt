@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 
 @FeignClient(name = GET_MESSAGE_CLIENT_NAME, url = "\${api.get.message.client.url}")
-interface GetMessageClient {
+interface MessageClient {
 
     @RequestMapping("/v1/mock/messages")
     fun requestMessage(@RequestHeader authorization: String): Message

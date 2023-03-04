@@ -1,15 +1,15 @@
 package br.dev.s2w.exploring.mock.gateway.http
 
 import br.dev.s2w.exploring.mock.domain.CustomerInfoResponse
-import br.dev.s2w.exploring.mock.gateway.usecase.GetCustomerInfoUsecase
+import br.dev.s2w.exploring.mock.gateway.usecase.CustomerInfoUsecase
 import br.dev.s2w.exploring.mock.util.constants.Constants.X_CUSTOMER_ID
 import br.dev.s2w.exploring.mock.util.constants.Constants.X_DOCUMENT_NUMBER
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/customer")
-class GetCustomerInfoController(
-    private val getCustomerInfoUsecase: GetCustomerInfoUsecase
+class CustomerInfoController(
+    private val customerInfoUsecase: CustomerInfoUsecase
 ) {
 
     @GetMapping("/{document-number}/identification/{customer-id}")
@@ -18,6 +18,6 @@ class GetCustomerInfoController(
         @PathVariable(X_DOCUMENT_NUMBER) documentNumber: String,
         @PathVariable(X_CUSTOMER_ID) customerId: String
     ): CustomerInfoResponse {
-        return getCustomerInfoUsecase.execute(authorization, documentNumber, customerId)
+        return customerInfoUsecase.execute(authorization, documentNumber, customerId)
     }
 }

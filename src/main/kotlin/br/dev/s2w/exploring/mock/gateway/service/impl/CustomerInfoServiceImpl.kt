@@ -1,18 +1,18 @@
 package br.dev.s2w.exploring.mock.gateway.service.impl
 
-import br.dev.s2w.exploring.mock.domain.Customer
+import br.dev.s2w.exploring.mock.domain.CustomerDTO
 import br.dev.s2w.exploring.mock.domain.CustomerInfoResponse
-import br.dev.s2w.exploring.mock.gateway.client.GetCustomerInfoClient
-import br.dev.s2w.exploring.mock.gateway.service.GetCustomerInfoService
+import br.dev.s2w.exploring.mock.gateway.client.CustomerInfoClient
+import br.dev.s2w.exploring.mock.gateway.service.CustomerInfoService
 import br.dev.s2w.exploring.mock.util.properties.ConfirmCustomerInfoProperties
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 
 @Service
-class GetCustomerInfoServiceImpl(
-    private val getCustomerInfoClient: GetCustomerInfoClient,
+class CustomerInfoServiceImpl(
+    private val customerInfoClient: CustomerInfoClient,
     private val confirmCustomerInfoProperties: ConfirmCustomerInfoProperties
-) : GetCustomerInfoService {
+) : CustomerInfoService {
 
     override fun getCustomerInfo(
         authorization: String,
@@ -24,14 +24,14 @@ class GetCustomerInfoServiceImpl(
             //todo: implementar tratamento para requisição inválida
         }
 
-        val customer = getCustomerInfoClient.requestCustomerInfo(authorization, documentNumber, customerId)
+        val customerDTO = customerInfoClient.requestCustomerInfo(authorization, documentNumber, customerId)
 
-        if (isInvalidResponse(customer)) {
+        if (isInvalidResponse(customerDTO)) {
             println("Resposta inválida!")
             //todo: implementar tratamento para resposta inválida
         }
 
-        val customerInfo = customer.body!!
+        val customerInfo = customerDTO.body!!
 
         return buildCustomerInfoResponse(customerInfo)
     }
@@ -42,20 +42,20 @@ class GetCustomerInfoServiceImpl(
                 || customerId.isBlank()
     }
 
-    private fun isInvalidResponse(customer: ResponseEntity<Customer>): Boolean {
+    private fun isInvalidResponse(customer: ResponseEntity<CustomerDTO>): Boolean {
         return customer.hasBody()
                 || customer.body!!.personalInformation.fullName.isBlank()
                 || customer.body!!.personalInformation.documentNumber.isBlank()
                 || customer.body!!.contactInformation.emailAddress.isBlank()
     }
 
-    private fun buildCustomerInfoResponse(customerInfo: Customer): CustomerInfoResponse {
+    private fun buildCustomerInfoResponse(customerDTOInfo: CustomerDTO): CustomerInfoResponse {
         return CustomerInfoResponse(
             pageTitle = confirmCustomerInfoProperties.title,
             pageSubtitle = confirmCustomerInfoProperties.subtitle,
-            customerName = customerInfo.personalInformation.fullName,
-            customerDocumentNumber = customerInfo.personalInformation.documentNumber,
-            customerEmailAddress = customerInfo.contactInformation.emailAddress,
+            customerName = customerDTOInfo.personalInformation.fullName,
+            customerDocumentNumber = customerDTOInfo.personalInformation.documentNumber,
+            customerEmailAddress = customerDTOInfo.contactInformation.emailAddress,
             pageContinueButtonLabel = confirmCustomerInfoProperties.continueButtonLabel,
             pageCancelButtonLabel = confirmCustomerInfoProperties.cancelButtonLabel,
             pageWarningMessage = confirmCustomerInfoProperties.warningMessage

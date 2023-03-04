@@ -1,12 +1,12 @@
 package br.dev.s2w.exploring.mock.gateway.usecase
 
 import br.dev.s2w.exploring.mock.domain.CustomerInfoResponse
-import br.dev.s2w.exploring.mock.gateway.service.GetCustomerInfoService
+import br.dev.s2w.exploring.mock.gateway.service.CustomerInfoService
 import org.springframework.stereotype.Component
 
 @Component
-class GetCustomerInfoUsecase(
-    private val getCustomerInfoService: GetCustomerInfoService
+class CustomerInfoUsecase(
+    private val customerInfoService: CustomerInfoService
 ) {
 
     fun execute(
@@ -14,6 +14,6 @@ class GetCustomerInfoUsecase(
         documentNumber: String,
         customerId: String
     ): CustomerInfoResponse {
-        return getCustomerInfoService.getCustomerInfo(authorization, documentNumber, customerId)
+        return customerInfoService.getCustomerInfo(authorization, documentNumber, customerId)
     }
 }
