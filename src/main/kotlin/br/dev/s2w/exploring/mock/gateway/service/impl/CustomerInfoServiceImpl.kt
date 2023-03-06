@@ -8,6 +8,8 @@ import br.dev.s2w.exploring.mock.gateway.client.CustomerInfoClient
 import br.dev.s2w.exploring.mock.gateway.service.CustomerInfoService
 import br.dev.s2w.exploring.mock.util.constants.Constants
 import br.dev.s2w.exploring.mock.util.properties.ConfirmCustomerInfoProperties
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 
@@ -16,6 +18,8 @@ class CustomerInfoServiceImpl(
     private val customerInfoClient: CustomerInfoClient,
     private val confirmCustomerInfoProperties: ConfirmCustomerInfoProperties
 ) : CustomerInfoService {
+
+    private val logger: Logger = LoggerFactory.getLogger(CustomerInfoServiceImpl::class.java)
 
     override fun getCustomerInfo(
         authorization: String,
@@ -26,6 +30,8 @@ class CustomerInfoServiceImpl(
             throw InvalidRequestException(Constants.HANDLE_BAD_REQUEST_MESSAGE)
         }
 
+        log("Starting service to request customer information... customerId: $customerId")
+
         val customerDTO = customerInfoClient.requestCustomerInfo(authorization, documentNumber, customerId)
 
         if (isInvalidResponse(customerDTO)) {
@@ -34,7 +40,9 @@ class CustomerInfoServiceImpl(
 
         val customerInfo = customerDTO.body!!
 
-        return buildCustomerInfoResponse(customerInfo)
+        return buildCustomerInfoResponse(customerInfo).also {
+            log("Finishing service to request customer information... customerId: $customerId")
+        }
     }
 
     private fun isInvalidRequest(authorization: String, documentNumber: String, customerId: String): Boolean {
@@ -61,5 +69,9 @@ class CustomerInfoServiceImpl(
             pageCancelButtonLabel = confirmCustomerInfoProperties.cancelButtonLabel,
             pageWarningMessage = confirmCustomerInfoProperties.warningMessage
         )
+    }
+
+    private fun log(message: String) {
+        logger.debug(message)
     }
 }
