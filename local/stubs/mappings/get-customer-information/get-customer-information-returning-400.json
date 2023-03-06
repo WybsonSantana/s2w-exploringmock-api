@@ -1,0 +1,19 @@
+{
+  "request": {
+    "url": "/v1/customer/consult/34443942092/id/ab9cbc88-faaf-41d4-8cf1-43e6df0139ec",
+    "method": "GET",
+    "headers": {
+      "authorization": {
+        "matches": ".*"
+      }
+    }
+  },
+  "response": {
+    "status": 400,
+    "jsonBody": {
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

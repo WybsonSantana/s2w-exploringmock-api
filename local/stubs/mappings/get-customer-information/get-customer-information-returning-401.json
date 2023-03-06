@@ -1,0 +1,19 @@
+{
+  "request": {
+    "url": "/v1/customer/consult/25511181072/id/2291a061-3c0d-49a1-b3f6-08d9ca444629",
+    "method": "GET",
+    "headers": {
+      "authorization": {
+        "matches": ".*"
+      }
+    }
+  },
+  "response": {
+    "status": 401,
+    "jsonBody": {
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
