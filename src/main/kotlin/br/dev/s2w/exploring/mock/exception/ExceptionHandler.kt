@@ -4,6 +4,7 @@ import br.dev.s2w.exploring.mock.domain.ErrorView
 import br.dev.s2w.exploring.mock.util.constants.Constants
 import feign.FeignException
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.MissingRequestHeaderException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -52,6 +53,17 @@ class ExceptionHandler {
             status = HttpStatus.NOT_FOUND.value(),
             error = HttpStatus.NOT_FOUND.name,
             message = Constants.HANDLE_NOT_FOUND_MESSAGE,
+            path = request.servletPath
+        )
+    }
+
+    @ExceptionHandler(MissingRequestHeaderException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleMissingRequestHeaderException(request: HttpServletRequest): ErrorView {
+        return ErrorView(
+            status = HttpStatus.BAD_REQUEST.value(),
+            error = HttpStatus.BAD_REQUEST.name,
+            message = Constants.HANDLE_BAD_REQUEST_MESSAGE,
             path = request.servletPath
         )
     }
