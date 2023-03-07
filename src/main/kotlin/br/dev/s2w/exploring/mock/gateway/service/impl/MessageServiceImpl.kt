@@ -6,6 +6,7 @@ import br.dev.s2w.exploring.mock.exception.InvalidResponseException
 import br.dev.s2w.exploring.mock.gateway.client.MessageClient
 import br.dev.s2w.exploring.mock.gateway.service.MessageService
 import br.dev.s2w.exploring.mock.util.constants.Constants
+import br.dev.s2w.exploring.mock.util.logger.logDebug
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
@@ -19,11 +20,12 @@ class MessageServiceImpl(
     private val logger: Logger = LoggerFactory.getLogger(MessageServiceImpl::class.java)
 
     override fun getMessage(authorization: String): Message {
+        logDebug(logger, "Starting service to request message...")
+
         if (authorization.isBlank()) {
             throw InvalidRequestException(Constants.HANDLE_BAD_REQUEST_MESSAGE)
         }
 
-        log("Starting service to request message...")
 
         val response = messageClient.requestMessage(authorization)
 
@@ -32,15 +34,11 @@ class MessageServiceImpl(
         }
 
         return response.body!!.also {
-            log("Finishing service to request message...")
+            logDebug(logger, "Finishing service to request message...")
         }
     }
 
     private fun isInvalidResponse(response: ResponseEntity<Message>): Boolean {
         return !response.hasBody() || response.body!!.message.isBlank()
-    }
-
-    private fun log(message: String) {
-        logger.debug(message)
     }
 }
