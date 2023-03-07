@@ -1,6 +1,6 @@
 {
   "request": {
-    "url": "/v1/customer/consult/02302176308/id/83014969-4800-4cc8-95eb-a2f8cd8851df",
+    "url": "/v1/mock/customer/consult/02302176308/id/83014969-4800-4cc8-95eb-a2f8cd8851df",
     "method": "GET",
     "headers": {
       "authorization": {

@@ -1,6 +1,6 @@
 {
   "request": {
-    "url": "/v1/mock/messages",
+    "url": "/v1/mock/message",
     "method": "GET",
     "headers": {
       "authorization": {
