@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader
 @FeignClient(name = Constants.GET_CUSTOMER_INFO_CLIENT_NAME, url = "\${api.get.customer.info.client.url}")
 interface CustomerInfoClient {
 
-    @GetMapping("/v1/customer/consult/{document-number}/id/{customer-id}")
+    @GetMapping("/v1/mock/customer/consult/{document-number}/id/{customer-id}")
     fun requestCustomerInfo(
         @RequestHeader authorization: String,
         @PathVariable(Constants.X_DOCUMENT_NUMBER) documentNumber: String,

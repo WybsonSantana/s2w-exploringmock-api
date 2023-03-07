@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 @FeignClient(name = Constants.GET_MESSAGE_CLIENT_NAME, url = "\${api.get.message.client.url}")
 interface MessageClient {
 
-    @RequestMapping("/v1/mock/messages")
+    @RequestMapping("/v1/mock/message")
     fun requestMessage(@RequestHeader authorization: String): ResponseEntity<Message>
 
 }
