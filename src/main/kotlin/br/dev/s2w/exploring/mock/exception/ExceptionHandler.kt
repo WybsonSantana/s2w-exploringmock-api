@@ -99,10 +99,13 @@ class ExceptionHandler {
         }
     }
 
-    @ExceptionHandler(InvalidRequestException::class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    fun handleInvalidRequestException(exception: InvalidRequestException, request: HttpServletRequest): ErrorView {
-        val httpStatus = HttpStatus.BAD_REQUEST
+    @ExceptionHandler(BlankHeaderInputException::class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    fun handleBlankHeaderInputRequestException(
+        exception: BlankHeaderInputException,
+        request: HttpServletRequest
+    ): ErrorView {
+        val httpStatus = HttpStatus.UNAUTHORIZED
         val message = exception.message!!
 
         return ErrorView(

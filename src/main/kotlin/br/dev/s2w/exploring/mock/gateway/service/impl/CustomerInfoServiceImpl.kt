@@ -2,7 +2,6 @@ package br.dev.s2w.exploring.mock.gateway.service.impl
 
 import br.dev.s2w.exploring.mock.domain.CustomerDTO
 import br.dev.s2w.exploring.mock.domain.CustomerInfoResponse
-import br.dev.s2w.exploring.mock.exception.InvalidRequestException
 import br.dev.s2w.exploring.mock.exception.InvalidResponseException
 import br.dev.s2w.exploring.mock.gateway.client.CustomerInfoClient
 import br.dev.s2w.exploring.mock.gateway.service.CustomerInfoService
@@ -29,11 +28,6 @@ class CustomerInfoServiceImpl(
     ): CustomerInfoResponse {
         logDebug(logger, "Starting service to request customer information... customer_id: $customerId")
 
-        if (isInvalidRequest(authorization, documentNumber, customerId)) {
-            throw InvalidRequestException(Constants.HANDLE_BAD_REQUEST_MESSAGE)
-        }
-
-
         val customerDTO = customerInfoClient.requestCustomerInfo(authorization, documentNumber, customerId)
 
         if (isInvalidResponse(customerDTO)) {
@@ -45,12 +39,6 @@ class CustomerInfoServiceImpl(
         return buildCustomerInfoResponse(customerInfo).also {
             logDebug(logger, "Finished service to request customer information. customer_id: $customerId")
         }
-    }
-
-    private fun isInvalidRequest(authorization: String, documentNumber: String, customerId: String): Boolean {
-        return authorization.isBlank()
-                || documentNumber.isBlank()
-                || customerId.isBlank()
     }
 
     private fun isInvalidResponse(customer: ResponseEntity<CustomerDTO>): Boolean {

@@ -1,7 +1,6 @@
 package br.dev.s2w.exploring.mock.gateway.service.impl
 
 import br.dev.s2w.exploring.mock.domain.Message
-import br.dev.s2w.exploring.mock.exception.InvalidRequestException
 import br.dev.s2w.exploring.mock.exception.InvalidResponseException
 import br.dev.s2w.exploring.mock.gateway.client.MessageClient
 import br.dev.s2w.exploring.mock.gateway.service.MessageService
@@ -21,11 +20,6 @@ class MessageServiceImpl(
 
     override fun getMessage(authorization: String): Message {
         logDebug(logger, "Starting service to request message...")
-
-        if (authorization.isBlank()) {
-            throw InvalidRequestException(Constants.HANDLE_BAD_REQUEST_MESSAGE)
-        }
-
 
         val response = messageClient.requestMessage(authorization)
 
