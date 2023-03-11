@@ -2,23 +2,23 @@
 
 ---
 
-![GitHub repo size](https://img.shields.io/github/repo-size/iuricode/README-template?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/iuricode/README-template?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/iuricode/README-template?style=for-the-badge)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/iuricode/README-template?style=for-the-badge)
-![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/iuricode/README-template?style=for-the-badge)
+<div align="center">
+<img src="https://img.shields.io/github/languages/top/WybsonSantana/s2w-exploringmock-api" alt="GitHub top language">
+<img src="https://img.shields.io/github/repo-size/WybsonSantana/s2w-exploringmock-api" alt="GitHub repo size">
+<img src="https://img.shields.io/github/last-commit/WybsonSantana/s2w-exploringmock-api" alt="GitHub last commit">
+<img src="https://img.shields.io/github/stars/WybsonSantana/s2w-exploringmock-api?style=social" alt="GitHub repo stars">
+<img src="https://img.shields.io/github/forks/WybsonSantana/s2w-exploringmock-api?label=Fork" alt="GitHub repo forks">
+<img src="https://img.shields.io/github/issues-pr/WybsonSantana/s2w-exploringmock-api" alt="BitHub pull requests">
+<img src="https://img.shields.io/github/issues/WybsonSantana/s2w-exploringmock-api" alt="GitHub issues">
+</div>
 
 ---
 
-## 💻 Sobre o projeto
+## 📝 Descrição
 
 Projeto criado com intuito de exercitar a construção de uma API e demonstrar aos colegas de estudo como a utilização de mocks pode nos ajudar com a simulação de uma integração com outros microsserviços.
 
----
-
-## 📂 Collection
-
-[s2w-exploringmock-api-collection](./collection/s2w-exploringmock-api-collection.json)
+De acordo com o site oficial: "o WireMock libera você da dependência de APIs instáveis e permite que você desenvolva com confiança. É fácil iniciar um servidor de API fictício e simular vários cenários e APIs do mundo real, incluindo REST, SOAP, OAuth2 e muito mais. Crie ambientes de desenvolvimento estáveis, isole-se de terceiros e simule APIs que ainda não existem".
 
 ---
 
@@ -28,7 +28,7 @@ A aplicação possui dois endpoints que utilizam o Spring Cloud Open Feign para 
 
 ### 🔘 /message/get
 
-Integra-se a outro microsserviço e recupera os dados de uma mensagem.
+Simula a integração com um outro microsserviço para retornar uma mensagem.
 
 #### ⬅ Requisição
 
@@ -205,7 +205,7 @@ Body:
 
 ## 🧩 Integrações
 
-As seguintes integrações são realizadas:
+As seguintes integrações são simuladas com a utilização do Wiremock:
 
 ### 🔘 /v1/mock/message
 
@@ -369,44 +369,57 @@ Body:
 
 ---
 
-## 🧰 Tecnologias e recursos
+## 🛰 Tecnologias e recursos
 
-As seguintes tecnologias e recursos foram utilizados no desenvolvimento da peça/projeto:
+As seguintes tecnologias foram utilizadas no desenvolvimento do projeto:
 
-- **Kotlin**
-- **Spring Boot**
-- **Wiremock**
+☑ **Kotlin**
+☑ **Spring Boot**
+☑ **Wiremock**
 
 ---
 
-## 🚀 Como executar
+## 💻 Pré-requisitos
 
-Antes de começar, você precisará ter instalado as seguintes ferramentas em sua máquina:
+Para executar e testar a aplicação de maneira mais simplificada, é recomendável a utilização das seguintes ferramentas: 
 
-- **IntelliJ** 
-- **JDK 11**
-- **Docker**
-- **Git**
+☑ **IntelliJ**
+☑ **Insomnia**
+☑ **JDK 11**
+☑ **Terminal**
+☑ **Git**
+☑ **Docker**
 
 ### ⏯ Executando a aplicação
 
-Clone o repositório com o seguinte comando:
+Primeiro, o repositório da aplicação poderá ser clonado utilizando o seguinte comando no terminal:
 
 ```bash
-$ git clone https://github.com/WybsonSantana/s2w-exploringmock-api.git
-````
+$git clone https://github.com/WybsonSantana/s2w-exploringmock-api.git
+```
 
-Acesse a pasta do projeto pelo terminal usando o comando:
-
-```bash
-$ cd s2w-explorinmock-api
-````
-
-Com o Docker em execução, execute o arquivo `docker-compose.yml` com o seguinte comando para subir o container do Wiremock:
+Agora, acesse a pasta do projeto pelo terminal usando o comando:
 
 ```bash
-$ docker compose up -d
-````
+$cd s2w-explorinmock-api
+```
+
+Com o Docker em execução, execute o arquivo `docker-compose.yml` com o seguinte comando para subir o container do Wiremock e a aplicação conseguir realizar as integrações necessárias:
+
+```bash
+$docker compose up -d
+```
+
+Se tudo der certo com a subida do conteiner, uma mensagem similar a esta deverá ser exibida:
+
+```bash
+$docker compose up -d
+[+] Running 2/2
+ - Network s2w-exploringmock-api_default       Created                                                                                                             0.0s
+ - Container s2w-exploringmock-api-wiremock-1  Started                                                                                                             3.3s
+
+$
+``` 
 
 Agora, abra o projeto no IntelliJ e navegue até a classe principal da aplicação no seguinte caminho:
 
@@ -416,4 +429,42 @@ Clique no arquivo `S2wExploringMockApiApplication.kt` com o botão direito do mo
 
 `-Dspring.profiles.active=local`
 
-Clique no botão `Aplicar` e em seguida em `OK`. Pronto! Agora a aplicação já pode ser executada com o comando `Shift + F10`.
+Clique no botão `Aplicar` e em seguida em `OK`.
+
+Esta última configuração permitirá que a applicação seja executada utilizando o profile local e habilite a exeibição de alguns logs em nível DEBUG.
+
+Pronto! Agora a aplicação já pode ser executada com o comando `Shift + F10`.
+
+### 🎯 Testando a aplicação
+
+As requisições para testes da aplicação podem ser feitas com a utilização da collection disponível no projeto em algum cliente como Insomnia, Postman, ThunderClient etc ou através da interface do Swagger em algum web browser.   
+
+Obs: a aplicação ficará disponível na porta 8080 e o WireMock receberá as requisições na porta 9001.
+
+#### 🗃 Collection
+
+💾 [s2w-exploringmock-api-collection](./collection/s2w-exploringmock-api-collection.json)
+
+#### ⌨ Swagger
+
+🔗 [Swagger UI](http://localhost:8080/swagger-ui/index.html) 
+
+---
+
+## ℹ Links úteis
+
+* [WireMock User Documentation | WireMock](https://wiremock.org/docs/)
+* [Introduction to Spring Cloud OpenFeign | Baeldung]()
+* [Kotlin and Spring Boot @ConfigurationProperties | Baeldung on Kotlin](https://www.baeldung.com/kotlin/spring-boot-configurationproperties)
+
+---
+
+## ⚠ Observação
+
+Todas as informações utilizadas neste projeto, como nomes, datas de nascimento, endereços, números de documentos e telefones foram geradas de forma aleatória e não refletem dados reais de uma pessoa.
+
+---
+
+[🔼 Voltar ao topo](#s2w-exploringmock-api)
+
+---
