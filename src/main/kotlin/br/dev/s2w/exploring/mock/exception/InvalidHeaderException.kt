@@ -1,5 +1,5 @@
 package br.dev.s2w.exploring.mock.exception
 
-class BlankHeaderInputException(
+class InvalidHeaderException(
     message: String
 ) : RuntimeException(message)

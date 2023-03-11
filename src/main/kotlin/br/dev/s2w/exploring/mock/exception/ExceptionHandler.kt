@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import javax.servlet.http.HttpServletRequest
+import br.dev.s2w.exploring.mock.exception.ExceptionHandler as _ExceptionHandler
 
 @RestControllerAdvice
 class ExceptionHandler {
 
-    private val logger: Logger =
-        LoggerFactory.getLogger(br.dev.s2w.exploring.mock.exception.ExceptionHandler::class.java)
+    private val logger: Logger = LoggerFactory.getLogger(_ExceptionHandler::class.java)
 
     @ExceptionHandler(FeignException.BadRequest::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -99,10 +99,10 @@ class ExceptionHandler {
         }
     }
 
-    @ExceptionHandler(BlankHeaderInputException::class)
+    @ExceptionHandler(InvalidHeaderException::class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     fun handleBlankHeaderInputRequestException(
-        exception: BlankHeaderInputException,
+        exception: InvalidHeaderException,
         request: HttpServletRequest
     ): ErrorView {
         val httpStatus = HttpStatus.UNAUTHORIZED
@@ -118,9 +118,25 @@ class ExceptionHandler {
         }
     }
 
+    @ExceptionHandler(InvalidRequestException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleInvalidRequestException(exception: InvalidResponseException, request: HttpServletRequest): ErrorView {
+        val httpStatus = HttpStatus.BAD_REQUEST
+        val message = exception.message!!
+
+        return ErrorView(
+            status = httpStatus.value(),
+            error = httpStatus.name,
+            message = message,
+            path = request.servletPath
+        ).also {
+            logError(logger, "${httpStatus.value()} ${httpStatus.name} - $message")
+        }
+    }
+
     @ExceptionHandler(InvalidResponseException::class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    fun handleFeignInvalidResponse(exception: InvalidResponseException, request: HttpServletRequest): ErrorView {
+    fun handleInvalidResponseException(exception: InvalidResponseException, request: HttpServletRequest): ErrorView {
         val httpStatus = HttpStatus.INTERNAL_SERVER_ERROR
         val message = exception.message!!
 
@@ -136,7 +152,7 @@ class ExceptionHandler {
 
     @ExceptionHandler(Exception::class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    fun handleFeignInternalServerErrorException(request: HttpServletRequest): ErrorView {
+    fun handleInternalServerErrorException(request: HttpServletRequest): ErrorView {
         val httpStatus = HttpStatus.INTERNAL_SERVER_ERROR
         val message = Constants.HANDLE_INTERNAL_SERVER_ERROR_MESSAGE
 
