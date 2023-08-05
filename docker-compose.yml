@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   wiremock:
-    image: holomekc/wiremock-gui:latest
+    image: holomekc/wiremock-gui:2.34.0.0
     ports:
       - "9001:8080"
     volumes:
